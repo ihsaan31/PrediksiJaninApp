@@ -381,7 +381,7 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
             score += 1 
         
         
-        output_text = f"Resiko janin {'Tinggi' if score > 3 else 'Rendah'}"
+        output_text = f"Resiko janin {'Beresiko' if score > 3 else 'Normal'}"
 
 
         # If 'Tidak Ada' is selected for Riwayat Penyakit, uncheck other options
