@@ -9,22 +9,18 @@ server = app.server
 app.layout = dbc.Container([
     dbc.Row([
        dbc.Col([
-           html.H1("App", className="mb-4 mt-5 text-center")
+           html.H1("Fetus Prediction App", className="mb-4 mt-5 text-center")
        ], width=12)
     ], justify="center"),
-
+    
     dbc.Row([
         dbc.Col([
-            html.Label("Usia Ibu"),
-        dbc.Input(id="your-usia-ibu-input-id", placeholder="Input goes here...", type="number", min=0, max=49),
-        dbc.FormText("Type something in the box above"),
-        ], width=6),
-
+        dmc.NumberInput(id="your-usia-ibu-input-id", label="Usia Ibu:",  min=10, max=50),
+        ], width={'size': 12, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0}),
+        
         dbc.Col([
-            html.Label("Usia Kandungan"),
-        dbc.Input(id="your-usia-kandungan-input-id", placeholder="Input goes here...", type="number", min=0, max=49),
-        dbc.FormText("Type something in the box above"),
-        ], width=6)
+            dmc.NumberInput(id="your-usia-kandungan-input-id", label="Usia Kandungan:",  min=1, max=40),
+        ], width={'size': 12, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0})
     ]),
 
     dbc.Row([
@@ -43,7 +39,7 @@ app.layout = dbc.Container([
             inline=True,
         ),
         dbc.FormText(""),
-        ], width=6),
+        ], width={'size': 12, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0}),
         dbc.Col([
             html.Label('Rhesus'),
             html.Br(),
@@ -57,7 +53,7 @@ app.layout = dbc.Container([
             id="radioitems-inline-input_2",
             inline=True,
         ),
-        ], width=6)
+        ], width={'size': 12, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0})
     ]),
 
     dbc.Row([
@@ -75,7 +71,7 @@ app.layout = dbc.Container([
             inline=True,
         ),
         dbc.FormText(""),
-        ], width=6),
+        ], width={'size': 10, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0}),
         dbc.Col([
             html.Label('Jumlah Persalinan'),
             html.Br(),
@@ -91,7 +87,7 @@ app.layout = dbc.Container([
             id="radioitems-inline-input_4",
             inline=True,
         ),
-        ], width=6)
+        ], width={'size': 10, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0})
     ]),
 
     dbc.Row([
@@ -109,7 +105,7 @@ app.layout = dbc.Container([
             inline=True,
         ),
         dbc.FormText(""),
-        ], width=6),
+        ], width={'size': 10, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0}),
         dbc.Col([
             html.Label('Apakah Kehamilan Ini Diinginkan?'),
             html.Br(),
@@ -123,7 +119,7 @@ app.layout = dbc.Container([
             id="radioitems-inline-input_6",
             inline=True,
         ),
-        ], width=6)
+        ], width={'size': 10, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0})
     ]),
 
     dbc.Row([
@@ -139,7 +135,7 @@ app.layout = dbc.Container([
             inline=True,
         ),
         dbc.FormText(""),
-        ], width=6),
+        ], width={'size': 10, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0}),
         dbc.Col([
             html.Label('Apakah Anda Perokok?'),
             html.Br(),
@@ -153,7 +149,7 @@ app.layout = dbc.Container([
             id="radioitems-inline-input_8",
             inline=True,
         ),
-        ], width=6)
+        ], width={'size': 10, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0})
     ]),
 
     dbc.Row([
@@ -169,7 +165,7 @@ app.layout = dbc.Container([
             inline=True,
         ),
         dbc.FormText(""),
-        ], width=6),
+        ], width={'size': 10, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0}),
         dbc.Col([
             html.Label('Apakah Anda Sering Terpapar Polusi? (Asap Rokok, Mengendarai / Penumpang Motor)'),
             html.Br(),
@@ -183,7 +179,7 @@ app.layout = dbc.Container([
             id="radioitems-inline-input_10",
             inline=True,
         ),
-        ], width=6)
+        ], width={'size': 10, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0})
     ]),
 
     dbc.Row([
@@ -195,11 +191,11 @@ app.layout = dbc.Container([
                 {"label": "Tidak", "value": 'Tidak'},
             ],
             value="",
-            id="radioitems-inline-input_10",
+            id="radioitems-inline-input_11",
             inline=True,
         ),
         dbc.FormText(""),
-        ], width=6),
+        ], width={'size': 10, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0}),
         dbc.Col([
             html.Label('Apakah Anda Pernah Mengalami Pendarahan Ketika Hamil?'),
             html.Br(),
@@ -210,10 +206,10 @@ app.layout = dbc.Container([
             
             ],
             value="",
-            id="radioitems-inline-input_11",
+            id="radioitems-inline-input_12",
             inline=True,
         ),
-        ], width=6)
+        ], width={'size': 10, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0})
     ]),
 
     dbc.Row([
@@ -225,11 +221,11 @@ app.layout = dbc.Container([
                 {"label": "Tidak", "value": 'Tidak'},
             ],
             value="",
-            id="radioitems-inline-input_12",
+            id="radioitems-inline-input_13",
             inline=True,
         ),
         dbc.FormText(""),
-        ], width=6),
+        ], width={'size': 10, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0}),
         dbc.Col([
             html.Label('Apakah Anda Memilikin Riwayat Kelainan Bawaan?'),
             html.Br(),
@@ -240,10 +236,10 @@ app.layout = dbc.Container([
             
             ],
             value="",
-            id="radioitems-inline-input_13",
+            id="radioitems-inline-input_14",
             inline=True,
         ),
-        ], width=6)
+        ], width={'size': 10, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0})
     ]),
 
     dbc.Row([
@@ -255,11 +251,11 @@ app.layout = dbc.Container([
                 {"label": "Tidak", "value": 'Tidak'},
             ],
             value="",
-            id="radioitems-inline-input_14",
+            id="radioitems-inline-input_15",
             inline=True,
         ),
         dbc.FormText(""),
-        ], width=6),
+        ], width={'size': 10, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0}),
         dbc.Col([
             html.Label('Apakah Anda Pernah Operasi Caesar?'),
             html.Br(),
@@ -270,10 +266,10 @@ app.layout = dbc.Container([
             
             ],
             value="",
-            id="radioitems-inline-input_15",
+            id="radioitems-inline-input_16",
             inline=True,
         ),
-        ], width=6)
+        ], width={'size': 10, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0})
     ]),
     
 
@@ -296,7 +292,7 @@ app.layout = dbc.Container([
             ),
             dcc.Input(id='lainnya-input', placeholder='Enter custom penyakit', style={'display': 'none'}),
             dbc.FormText("Choose something in the box above"),
-        ], width=6),
+        ], width={'size': 10, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0}),
         dbc.Col([
             html.Label('Penyakit Turunan'),
             dbc.Checklist(
@@ -314,7 +310,7 @@ app.layout = dbc.Container([
                 inline=True,
             ),
             dcc.Input(id='lainnya-input-turunan', placeholder='Enter custom penyakit turunan', style={'display': 'none'}),
-        ], width=6)
+        ], width={'size': 10, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0})
     ]),
 
     dbc.Row([
@@ -326,7 +322,7 @@ app.layout = dbc.Container([
                 is_open=False,
             ),
         ],
-        width=12),
+       width={'size': 10, 'order': 1, 'offset': 1}),
     ]),
 ])
 
@@ -381,7 +377,7 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
             score += 1 
         
         
-        output_text = f"Resiko janin {'Beresiko' if score > 3 else 'Normal'}"
+        output_text = f"Janin: {'Beresiko' if score > 3 else 'Normal'}"
 
 
         # If 'Tidak Ada' is selected for Riwayat Penyakit, uncheck other options
