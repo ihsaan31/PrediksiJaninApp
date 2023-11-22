@@ -16,17 +16,17 @@ app.layout = dbc.Container([
     
     dbc.Row([
         dbc.Col([
-        dmc.NumberInput(id="your-usia-ibu-input-id", label="Usia Ibu:",  min=10, max=50),
+        dmc.NumberInput(id="your-usia-ibu-input-id", label="1. Usia Ibu:",  min=10, max=50),
         ], width={'size': 12, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0}),
         
         dbc.Col([
-            dmc.NumberInput(id="your-usia-kandungan-input-id", label="Usia Kandungan:",  min=1, max=40),
+            dmc.NumberInput(id="your-usia-kandungan-input-id", label="2. Usia Kandungan:",  min=1, max=40),
         ], width={'size': 12, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0})
     ]),
 
     dbc.Row([
         dbc.Col([
-            html.Label("Golongan Darah"),
+            html.Label("3. Golongan Darah"),
         dbc.RadioItems(
             options=[
                 {"label": "A", "value": 'A'},
@@ -42,7 +42,7 @@ app.layout = dbc.Container([
         dbc.FormText(""),
         ], width={'size': 12, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0}),
         dbc.Col([
-            html.Label('Rhesus'),
+            html.Label('4. Rhesus'),
             html.Br(),
         dbc.RadioItems(
             options=[
@@ -59,7 +59,7 @@ app.layout = dbc.Container([
 
     dbc.Row([
         dbc.Col([
-            html.Label("Hamil ke Berapa"),
+            html.Label("5. Hamil ke Berapa"),
         dbc.RadioItems(
             options=[
                 {"label": "1", "value": '1'},
@@ -74,7 +74,7 @@ app.layout = dbc.Container([
         dbc.FormText(""),
         ], width={'size': 10, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0}),
         dbc.Col([
-            html.Label('Jumlah Persalinan'),
+            html.Label('6. Jumlah Persalinan'),
             html.Br(),
         dbc.RadioItems(
             options=[
@@ -93,7 +93,7 @@ app.layout = dbc.Container([
 
     dbc.Row([
         dbc.Col([
-            html.Label("Jumlah Keguguran"),
+            html.Label("7. Jumlah Keguguran"),
         dbc.RadioItems(
             options=[
                 {"label": "0", "value": '0'},
@@ -108,7 +108,7 @@ app.layout = dbc.Container([
         dbc.FormText(""),
         ], width={'size': 10, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0}),
         dbc.Col([
-            html.Label('Apakah Kehamilan Ini Diinginkan?'),
+            html.Label('8. Apakah Kehamilan Ini Diinginkan?'),
             html.Br(),
         dbc.RadioItems(
             options=[
@@ -125,7 +125,7 @@ app.layout = dbc.Container([
 
     dbc.Row([
         dbc.Col([
-            html.Label("Apakah Anda Pengguna Alkohol? "),
+            html.Label("9. Apakah Anda Pengguna Alkohol? "),
         dbc.RadioItems(
             options=[
                 {"label": "Ya", "value": 'Ya'},
@@ -138,7 +138,7 @@ app.layout = dbc.Container([
         dbc.FormText(""),
         ], width={'size': 10, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0}),
         dbc.Col([
-            html.Label('Apakah Anda Perokok?'),
+            html.Label('10. Apakah Anda Perokok?'),
             html.Br(),
         dbc.RadioItems(
             options=[
@@ -155,7 +155,7 @@ app.layout = dbc.Container([
 
     dbc.Row([
         dbc.Col([
-            html.Label("Apakah Anda Pengguna Narkoba?"),
+            html.Label("11. Apakah Anda Pengguna Narkoba?"),
         dbc.RadioItems(
             options=[
                 {"label": "Ya", "value": 'Ya'},
@@ -168,7 +168,7 @@ app.layout = dbc.Container([
         dbc.FormText(""),
         ], width={'size': 10, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0}),
         dbc.Col([
-            html.Label('Apakah Anda Sering Terpapar Polusi? (Asap Rokok, Mengendarai / Penumpang Motor)'),
+            html.Label('12. Apakah Anda Sering Terpapar Polusi? (Asap Rokok, Mengendarai / Penumpang Motor)'),
             html.Br(),
         dbc.RadioItems(
             options=[
@@ -185,7 +185,7 @@ app.layout = dbc.Container([
 
     dbc.Row([
         dbc.Col([
-            html.Label("Apakah Anda Memiliki Riwayat Pendarahan Pasca Lahir?"),
+            html.Label("13. Apakah Anda Memiliki Riwayat Pendarahan Pasca Lahir?"),
         dbc.RadioItems(
             options=[
                 {"label": "Ya", "value": 'Ya'},
@@ -198,7 +198,7 @@ app.layout = dbc.Container([
         dbc.FormText(""),
         ], width={'size': 10, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0}),
         dbc.Col([
-            html.Label('Apakah Anda Pernah Mengalami Pendarahan Ketika Hamil?'),
+            html.Label('14. Apakah Anda Pernah Mengalami Pendarahan Ketika Hamil?'),
             html.Br(),
         dbc.RadioItems(
             options=[
@@ -215,7 +215,7 @@ app.layout = dbc.Container([
 
     dbc.Row([
         dbc.Col([
-            html.Label("Apakah Anda Sering Menggunakan Gadget?"),
+            html.Label("15. Apakah Anda Sering Menggunakan Gadget?"),
         dbc.RadioItems(
             options=[
                 {"label": "Ya", "value": 'Ya'},
@@ -228,7 +228,7 @@ app.layout = dbc.Container([
         dbc.FormText(""),
         ], width={'size': 10, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0}),
         dbc.Col([
-            html.Label('Apakah Anda Memilikin Riwayat Kelainan Bawaan?'),
+            html.Label('16. Apakah Anda Memilikin Riwayat Kelainan Bawaan?'),
             html.Br(),
         dbc.RadioItems(
             options=[
@@ -245,7 +245,7 @@ app.layout = dbc.Container([
 
     dbc.Row([
         dbc.Col([
-            html.Label("Apakah Anda Memilikin Riwayat Alergi?"),
+            html.Label("17. Apakah Anda Memilikin Riwayat Alergi?"),
         dbc.RadioItems(
             options=[
                 {"label": "Ya", "value": 'Ya'},
@@ -258,7 +258,7 @@ app.layout = dbc.Container([
         dbc.FormText(""),
         ], width={'size': 10, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0}),
         dbc.Col([
-            html.Label('Apakah Anda Pernah Operasi Caesar?'),
+            html.Label('18. Apakah Anda Pernah Operasi Caesar?'),
             html.Br(),
         dbc.RadioItems(
             options=[
@@ -276,7 +276,7 @@ app.layout = dbc.Container([
 
     dbc.Row([
         dbc.Col([
-            html.Label("Riwayat Penyakit"),
+            html.Label("19. Riwayat Penyakit"),
             dbc.Checklist(
                 options=[
                     {"label": "Tidak Ada", "value": 'Tidak Ada'},
@@ -295,7 +295,7 @@ app.layout = dbc.Container([
             dbc.FormText("Choose something in the box above"),
         ], width={'size': 10, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0}),
         dbc.Col([
-            html.Label('Penyakit Turunan'),
+            html.Label('20. Penyakit Turunan'),
             dbc.Checklist(
                 options=[
                     {"label": "Tidak Ada", "value": 'Tidak Ada'},
