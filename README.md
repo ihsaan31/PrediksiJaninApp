@@ -1,8 +1,8 @@
-# Prediction App with Dash
+# Fetal Prediction App with Dash
 
 ## Overview
 
-This is a prediction app built using Dash, a Python framework for building analytical web applications. The app is designed to [briefly describe the purpose of your app and the problem it solves].
+This is a prediction app built using Dash, a Python framework for building analytical web applications. The app is designed to Predict your fetus based on age, fetal age, and other features. This app is under a research for Kedaireka MatchingFund Gunadarma University 2023.
 
 
 ## Getting Started
@@ -11,8 +11,8 @@ This is a prediction app built using Dash, a Python framework for building analy
 
 Before running the app, ensure you have the following installed:
 
-- Python 3.x
-- [Any other dependencies, libraries, or services required]
+- Python 3.10
+
 
 ### Installation
 

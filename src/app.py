@@ -2,6 +2,7 @@ from dash import Dash, html, dcc
 import dash_bootstrap_components as dbc
 import plotly.express as px
 from dash.dependencies import Input, Output, State
+import dash_mantine_components as dmc
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
