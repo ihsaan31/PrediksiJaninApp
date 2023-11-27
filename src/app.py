@@ -416,8 +416,8 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
             score += 1 
         
         
-        # output_text = f"Janin: {'Beresiko' if score >= 1 else 'Normal'}"
-        output_text = f"Janin: {score}"
+        output_text = f"Janin: {'Beresiko' if score >= 1 else 'Normal'}"
+        # output_text = f"Janin: {score}"
 
         # If 'Tidak Ada' is selected for Riwayat Penyakit, uncheck other options
         if 'Tidak Ada' in selected_options_17:
