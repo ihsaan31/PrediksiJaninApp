@@ -368,9 +368,15 @@ app.layout = dbc.Container([
      State("radioitems-inline-input_2", "value"),
      State("radioitems-inline-input_3", "value"),
      State("radioitems-inline-input_4", "value"),
-     State("radioitems-inline-input_5", "value")]
+     State("radioitems-inline-input_5", "value"),
+     State("radioitems-inline-input_6", "value"),
+     State("radioitems-inline-input_7", "value"),
+     State("radioitems-inline-input_8", "value"),
+     State("radioitems-inline-input_9", "value"),
+     State("radioitems-inline-input_10", "value"),
+     State("radioitems-inline-input_13", "value")]
 )
-def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu_value, usia_kandungan_value, riwayat_penyakit, penyakit_turunan, golongan_darah, rhesus, hamil_ke_brp, jumlah_persalinan, jumlah_keguguran):
+def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu_value, usia_kandungan_value, riwayat_penyakit, penyakit_turunan, golongan_darah, rhesus, hamil_ke_brp, jumlah_persalinan, jumlah_keguguran, kehamilan_diinginkan, alkohol, rokok, narkoba, polusi, gadget):
     # Callback for showing/hiding custom input
     style_lainnya_input = {'display': 'block'} if 'Lainnya' in selected_options_17 else {'display': 'none'}
     style_lainnya_input_turunan = {'display': 'block'} if 'Lainnya' in selected_options_18 else {'display': 'none'}
@@ -392,14 +398,26 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
              score += 1
         if jumlah_keguguran == '3 atau lebih':
              score += 1
+        if kehamilan_diinginkan == 'Tidak':
+             score += 1
+        if alkohol == 'Ya':
+             score += 1
+        if rokok == 'Ya':
+             score += 1
+        if narkoba == 'Ya':
+             score += 1
+        if polusi == 'Ya':
+             score += 1
+        if gadget == 'Ya':
+             score += 1
         if "Tidak Ada" not in  riwayat_penyakit:
             score += 1
         if "Tidak Ada" not in  penyakit_turunan:
             score += 1 
         
         
-        output_text = f"Janin: {'Beresiko' if score >= 1 else 'Normal'}"
-
+        # output_text = f"Janin: {'Beresiko' if score >= 1 else 'Normal'}"
+        output_text = f"Janin: {score}"
 
         # If 'Tidak Ada' is selected for Riwayat Penyakit, uncheck other options
         if 'Tidak Ada' in selected_options_17:
