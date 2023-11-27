@@ -228,7 +228,7 @@ app.layout = dbc.Container([
         dbc.FormText(""),
         ], width={'size': 10, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0}),
         dbc.Col([
-            html.Label('16. Apakah Anda Memilikin Riwayat Kelainan Bawaan?'),
+            html.Label('16. Apakah Anda Memiliki Riwayat Kelainan Bawaan?'),
             html.Br(),
         dbc.RadioItems(
             options=[
@@ -245,7 +245,7 @@ app.layout = dbc.Container([
 
     dbc.Row([
         dbc.Col([
-            html.Label("17. Apakah Anda Memilikin Riwayat Alergi?"),
+            html.Label("17. Apakah Anda Memiliki Riwayat Alergi?"),
         dbc.RadioItems(
             options=[
                 {"label": "Ya", "value": 'Ya'},
@@ -293,7 +293,7 @@ app.layout = dbc.Container([
                 inline=True,
             ),
             dcc.Input(id='lainnya-input', placeholder='Enter custom penyakit', style={'display': 'none'}),
-            dbc.FormText("Choose something in the box above"),
+            dbc.FormText(""),
         ], width={'size': 10, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0}),
         dbc.Col([
             html.Label('20. Penyakit Turunan'),
@@ -316,6 +316,24 @@ app.layout = dbc.Container([
         ], width={'size': 10, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0})
     ]),
 
+    dbc.Row([
+        dbc.Col([
+            html.Label("21. Jumlah Riwayat Caesar"),
+        dbc.RadioItems(
+            options=[
+                {"label": "0", "value": '0'},
+                {"label": "1", "value": '1'},
+                {"label": "2", "value": '2'},
+                {"label": "3", "value": '3'},
+                {"label": "4", "value": '4'},
+            ],
+            value="",
+            id="radioitems-inline-input_17",
+            inline=True,
+        ),
+        dbc.FormText(""),
+        ], width={'size': 10, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0}),
+    ]),
     dbc.Row([
         dbc.Col([
             dbc.Button("Prediksi", color="primary", className="mt-3 mb-3", id="collapse-button", n_clicks=0),
