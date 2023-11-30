@@ -5,3 +5,4 @@ gunicorn
 pandas
 dash-tools
 dash_mantine_components
+joblib
