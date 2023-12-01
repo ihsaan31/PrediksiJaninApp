@@ -396,8 +396,18 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
 
     # Callback for collapsing/expanding section
     if n:
-        with open('tree_classifier.pkl', 'rb') as file:
-            tree_classifier = joblib.load(file)
+        with open('logreg_classifier.pkl', 'rb') as file:
+            logreg_classifier = joblib.load(file)
+
+        if usia_ibu_value < 20 or usia_ibu_value > 35:
+            usia_ibu_value = 1
+        else:
+            usia_ibu_value = 0
+
+        if usia_kandungan_value < 4:
+            usia_kandungan_value = 1
+        else:
+            usia_kandungan_value = 0
 
         if riwayat_penyakit[0] == 'Tidak Ada':
             riwayat_penyakit = 0
@@ -408,11 +418,11 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
             penyakit_turunan = 0
         else:
             penyakit_turunan = 1
-        prediction = tree_classifier.predict([[usia_ibu_value, usia_kandungan_value, golongan_darah,rhesus,hamil_ke_brp,jumlah_keguguran,kehamilan_diinginkan,alkohol,rokok,narkoba,polusi,riwayat_pendarahan,pedarahan_ketika,gadget,riwayat_kelainan,riwayat_alergi,pernah_caesar,riwayat_caesar, riwayat_penyakit,penyakit_turunan]])
-        prediction = 'Beresiko' if prediction == 0 else 'Normal'
+        prediction = logreg_classifier.predict([[usia_ibu_value, usia_kandungan_value, golongan_darah,rhesus,hamil_ke_brp,jumlah_keguguran,kehamilan_diinginkan,alkohol,rokok,narkoba,polusi,riwayat_pendarahan,pedarahan_ketika,gadget,riwayat_kelainan,riwayat_alergi,pernah_caesar,riwayat_caesar, riwayat_penyakit,penyakit_turunan]])
+        prediction = 'Tinggi' if prediction == 0 else ('Normal' if prediction == 1 else 'Rendah')
         
         # output_text = f"Janin: {'Beresiko' if score >= 1 else 'Normal'}"
-        output_text = f"Janin: {prediction}"
+        output_text = f"Janin beresiko: {prediction}"
 
         # If 'Tidak Ada' is selected for Riwayat Penyakit, uncheck other options
         if 'Tidak Ada' in selected_options_17:
@@ -449,5 +459,5 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
 
 if __name__ == '__main__':
     app.run_server(port=8009)
-    
+
 
