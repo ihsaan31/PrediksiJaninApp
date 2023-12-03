@@ -396,10 +396,10 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
     # Callback for collapsing/expanding section
     if n:
         score = 0
-        if usia_ibu_value < 20:
-            score =+ 5.55
-        elif usia_ibu_value > 40:
-            score += 7.8
+        if usia_ibu_value < 20 or usia_ibu_value > 40:
+            score =+ 7.8
+        elif usia_ibu_value >= 31 and usia_ibu_value <= 40:
+            score += 5.55
 
         if usia_kandungan_value == 1:
             score =+ 7.8
