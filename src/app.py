@@ -70,8 +70,7 @@ app.layout = dbc.Container([
                 {"label": "1", "value": 1},
                 {"label": "2", "value": 2},
                 {"label": "3", "value": 3},
-                {"label": "4", "value": 4},
-                {"label": "5 atau lebih", "value": 5},
+                {"label": "4 atau lebih", "value": 4},
             ],
             value=7,
             id="radioitems-inline-input_3",
@@ -396,30 +395,70 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
 
     # Callback for collapsing/expanding section
     if n:
-        with open('logreg_classifier.pkl', 'rb') as file:
-            logreg_classifier = joblib.load(file)
+        score = 0
+        if usia_ibu_value < 20:
+            score =+ 5.55
+        elif usia_ibu_value > 40:
+            score += 7.8
 
-        if usia_ibu_value < 20 or usia_ibu_value > 35:
-            usia_ibu_value = 1
-        else:
-            usia_ibu_value = 0
+        if usia_kandungan_value == 1:
+            score =+ 7.8
+        elif usia_kandungan_value == 2:
+            score += 5.5
 
-        if usia_kandungan_value < 4:
-            usia_kandungan_value = 1
-        else:
-            usia_kandungan_value = 0
+        if hamil_ke_brp == 1:
+            score += 5.55
+        elif hamil_ke_brp == 4:
+            score += 7.8
 
-        if riwayat_penyakit[0] == 'Tidak Ada':
-            riwayat_penyakit = 0
-        else:
-            riwayat_penyakit = 1
+        if riwayat_pendarahan == 1:
+            score += 5.55
+        elif riwayat_pendarahan == 4:
+            score += 7.8
 
-        if penyakit_turunan[0] == 'Tidak Ada':
-            penyakit_turunan = 0
-        else:
-            penyakit_turunan = 1
-        prediction = logreg_classifier.predict([[usia_ibu_value, usia_kandungan_value, golongan_darah,rhesus,hamil_ke_brp,jumlah_keguguran,kehamilan_diinginkan,alkohol,rokok,narkoba,polusi,riwayat_pendarahan,pedarahan_ketika,gadget,riwayat_kelainan,riwayat_alergi,pernah_caesar,riwayat_caesar, riwayat_penyakit,penyakit_turunan]])
-        prediction = 'Tinggi' if prediction == 0 else ('Normal' if prediction == 1 else 'Rendah')
+        if pedarahan_ketika == "Ya":
+            score += 7.8
+        if riwayat_caesar == 1:
+            score += 5.55
+        elif riwayat_caesar > 1:
+            score += 7.8
+
+        if "Tidak Ada" not in  riwayat_penyakit:
+            score += 5.6
+        
+        if "Tidak Ada" not in  penyakit_turunan:
+            score += 5.6
+
+        if jumlah_keguguran > 3:
+            score += 7.8
+        elif 2 <= jumlah_keguguran <= 3:
+            score += 5.55
+ 
+        if pernah_caesar == 'Ya':
+            score =+ 5.6
+        if kehamilan_diinginkan == 'Tidak':
+            score =+ 5.6
+        if riwayat_kelainan == 'Ya':
+            score =+ 5.6
+        if alkohol == 'Ya':
+            score =+ 5.55
+        if rokok == 'Ya':
+            score =+ 5.55
+        if narkoba == 'Ya':
+            score =+ 5.55
+        if golongan_darah == "Tidak Tau":
+            score += 2.75
+        if rhesus == "Tidak Tau":
+            score += 2.75
+        if polusi == "Ya":
+            score += 2.75
+        if gadget == "Ya":
+            score += 2.75
+        if riwayat_alergi == "Ya":
+            score += 2.75
+
+        
+        prediction = 'Normal' if score <= 4.5 else ('Rendah' if 4.6 <= score <= 6.5 else 'Tinggi')
         
         # output_text = f"Janin: {'Beresiko' if score >= 1 else 'Normal'}"
         output_text = f"Janin beresiko: {prediction}"
@@ -458,6 +497,6 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
 
 
 if __name__ == '__main__':
-    app.run_server(port=8009)
+    app.run_server(port=8002)
 
 
