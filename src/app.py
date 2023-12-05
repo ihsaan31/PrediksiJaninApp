@@ -399,15 +399,15 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
         if usia_ibu_value < 20 or usia_ibu_value > 40:
             score += 7.8
         elif usia_ibu_value >= 31 and usia_ibu_value <= 40:
-            score += 5.55
+            score += 4.6
 
         if usia_kandungan_value == 1:
             score += 7.8
         elif usia_kandungan_value == 2:
-            score += 5.5
+            score += 4.6
 
         if hamil_ke_brp == 1:
-            score += 5.55
+            score += 4.6
         elif hamil_ke_brp == 4:
             score += 7.8
 
@@ -417,7 +417,7 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
         if pedarahan_ketika == "Ya":
             score += 7.8
         if riwayat_caesar == 1:
-            score += 5.55
+            score += 4.6
         elif riwayat_caesar > 1:
             score += 7.8
 
@@ -430,7 +430,7 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
         if jumlah_keguguran > 3:
             score += 7.8
         elif 2 <= jumlah_keguguran <= 3:
-            score += 5.55
+            score += 4.6
  
         if pernah_caesar == 'Ya':
             score += 5.6
@@ -439,11 +439,11 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
         if riwayat_kelainan == 'Ya':
             score += 5.6
         if alkohol == 'Ya':
-            score += 5.55
+            score += 4.6
         if rokok == 'Ya':
-            score += 5.55
+            score += 4.6
         if narkoba == 'Ya':
-            score += 5.55
+            score += 4.6
         if golongan_darah == "Tidak Tau":
             score += 2.75
         if rhesus == "Tidak Tau":
