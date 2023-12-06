@@ -395,7 +395,7 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
 
     # Callback for collapsing/expanding section
     if n:
-<<<<<<< HEAD
+
         with open('rf_classifier.pkl', 'rb') as file:
             rf_classifier = joblib.load(file)
 
@@ -412,7 +412,7 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
             usia_kandungan_value = 1
         else:
             usia_kandungan_value = 0
-=======
+
         score = 0
         if usia_ibu_value < 20 or usia_ibu_value > 40:
             score += 7.8
@@ -428,63 +428,17 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
             score += 4.6
         elif hamil_ke_brp == 4:
             score += 7.8
->>>>>>> 00f01e93a52549e98c1d51ab5ccd65f9de1e84a3
+
 
         if riwayat_pendarahan == 'Ya':
             score += 5.6
 
-<<<<<<< HEAD
         if penyakit_turunan[0] == 'Tidak Ada':
             penyakit_turunan = 0
         else:
             penyakit_turunan = 1
         prediction = rf_classifier.predict([[usia_ibu_value, usia_kandungan_value, golongan_darah,rhesus,hamil_ke_brp,jumlah_keguguran,kehamilan_diinginkan,alkohol,rokok,narkoba,polusi,riwayat_pendarahan,pedarahan_ketika,gadget,riwayat_kelainan,riwayat_alergi,pernah_caesar,riwayat_caesar, riwayat_penyakit,penyakit_turunan]])
         prediction = 'Tinggi' if prediction == 0 else ('Normal' if prediction == 1 else 'Rendah')
-=======
-        if pedarahan_ketika == "Ya":
-            score += 7.8
-        if riwayat_caesar == 1:
-            score += 4.6
-        elif riwayat_caesar > 1:
-            score += 7.8
-
-        if "Tidak Ada" not in  riwayat_penyakit:
-            score += 5.6
-        
-        if "Tidak Ada" not in  penyakit_turunan:
-            score += 5.6
-
-        if jumlah_keguguran > 3:
-            score += 7.8
-        elif 2 <= jumlah_keguguran <= 3:
-            score += 4.6
- 
-        if pernah_caesar == 'Ya':
-            score += 5.6
-        if kehamilan_diinginkan == 'Tidak':
-            score += 5.6
-        if riwayat_kelainan == 'Ya':
-            score += 5.6
-        if alkohol == 'Ya':
-            score += 4.6
-        if rokok == 'Ya':
-            score += 4.6
-        if narkoba == 'Ya':
-            score += 4.6
-        if golongan_darah == "Tidak Tau":
-            score += 2.75
-        if rhesus == "Tidak Tau":
-            score += 2.75
-        if polusi == "Ya":
-            score += 2.75
-        if gadget == "Ya":
-            score += 2.75
-        if riwayat_alergi == "Ya":
-            score += 2.75
-
-        
-        prediction = 'Normal' if score <= 4.5 else ('Rendah' if 4.6 <= score <= 6.5 else 'Tinggi')
->>>>>>> 00f01e93a52549e98c1d51ab5ccd65f9de1e84a3
         
         # output_text = f"Janin: {'Beresiko' if score >= 1 else 'Normal'}"
         output_text = f"Janin beresiko: {prediction}"
