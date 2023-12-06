@@ -396,15 +396,19 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
 
     # Callback for collapsing/expanding section
     if n:
-        with open('logreg_classifier.pkl', 'rb') as file:
-            logreg_classifier = joblib.load(file)
+        with open('rf_classifier.pkl', 'rb') as file:
+            rf_classifier = joblib.load(file)
 
-        if usia_ibu_value < 20 or usia_ibu_value > 35:
+        if usia_ibu_value < 20 or usia_ibu_value > 40:
+            usia_ibu_value = 2
+        elif 31 <= usia_ibu_value <= 40:
             usia_ibu_value = 1
         else:
             usia_ibu_value = 0
 
-        if usia_kandungan_value < 4:
+        if usia_kandungan_value == 1:
+            usia_kandungan_value = 2
+        elif usia_kandungan_value == 2:
             usia_kandungan_value = 1
         else:
             usia_kandungan_value = 0
@@ -418,7 +422,7 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
             penyakit_turunan = 0
         else:
             penyakit_turunan = 1
-        prediction = logreg_classifier.predict([[usia_ibu_value, usia_kandungan_value, golongan_darah,rhesus,hamil_ke_brp,jumlah_keguguran,kehamilan_diinginkan,alkohol,rokok,narkoba,polusi,riwayat_pendarahan,pedarahan_ketika,gadget,riwayat_kelainan,riwayat_alergi,pernah_caesar,riwayat_caesar, riwayat_penyakit,penyakit_turunan]])
+        prediction = rf_classifier.predict([[usia_ibu_value, usia_kandungan_value, golongan_darah,rhesus,hamil_ke_brp,jumlah_keguguran,kehamilan_diinginkan,alkohol,rokok,narkoba,polusi,riwayat_pendarahan,pedarahan_ketika,gadget,riwayat_kelainan,riwayat_alergi,pernah_caesar,riwayat_caesar, riwayat_penyakit,penyakit_turunan]])
         prediction = 'Tinggi' if prediction == 0 else ('Normal' if prediction == 1 else 'Rendah')
         
         # output_text = f"Janin: {'Beresiko' if score >= 1 else 'Normal'}"
