@@ -38,7 +38,7 @@ app.layout = dbc.Container([
                 {"label": "AB", "value": 1},
                 {"label": "B", "value": 2},
                 {"label": "O", "value": 3},
-                {"label": "Tidak Tau", "value": "Tidak Tau"},
+                {"label": "Tidak Tau", "value": 4},
             ],
             value= 6,
             id="radioitems-inline-input_1",
@@ -53,7 +53,7 @@ app.layout = dbc.Container([
             options=[
                 {"label": "Postitif (+)", "value": 1},
                 {"label": "Negatif (-)", "value": 0},
-                {"label": "Tidak Tau", "value": "Tidak Tau"},
+                {"label": "Tidak Tau", "value": 2},
             ],
             value= 6,
             id="radioitems-inline-input_2",
@@ -70,7 +70,8 @@ app.layout = dbc.Container([
                 {"label": "1", "value": 1},
                 {"label": "2", "value": 2},
                 {"label": "3", "value": 3},
-                {"label": "4 atau lebih", "value": 4},
+                {"label": "4", "value": 4},
+                {"label": "5 atau lebih", "value": 5},
             ],
             value=7,
             id="radioitems-inline-input_3",
@@ -117,8 +118,8 @@ app.layout = dbc.Container([
             html.Br(),
         dbc.RadioItems(
             options=[
-                {"label": "Ya", "value": "Ya"},
-                {"label": "Tidak", "value": "Tidak"},
+                {"label": "Ya", "value": 1},
+                {"label": "Tidak", "value": 0},
             
             ],
             value=2,
@@ -133,8 +134,8 @@ app.layout = dbc.Container([
             html.Label("9. Apakah Anda Pengguna Alkohol? "),
         dbc.RadioItems(
             options=[
-                {"label": "Ya", "value": "Ya"},
-                {"label": "Tidak", "value": "Tidak"},
+                {"label": "Ya", "value": 1},
+                {"label": "Tidak", "value": 0},
             ],
             value=3,
             id="radioitems-inline-input_7",
@@ -147,8 +148,8 @@ app.layout = dbc.Container([
             html.Br(),
         dbc.RadioItems(
             options=[
-                {"label": "Ya", "value": "Ya"},
-                {"label": "Tidak", "value": "Tidak"},
+                {"label": "Ya", "value": 1},
+                {"label": "Tidak", "value": 0},
             
             ],
             value=3,
@@ -163,8 +164,8 @@ app.layout = dbc.Container([
             html.Label("11. Apakah Anda Pengguna Narkoba?"),
         dbc.RadioItems(
             options=[
-                {"label": "Ya", "value": "Ya"},
-                {"label": "Tidak", "value": "Tidak"},
+                {"label": "Ya", "value": 1},
+                {"label": "Tidak", "value": 0},
             ],
             value=3,
             id="radioitems-inline-input_9",
@@ -177,8 +178,8 @@ app.layout = dbc.Container([
             html.Br(),
         dbc.RadioItems(
             options=[
-                {"label": "Ya", "value": "Ya"},
-                {"label": "Tidak", "value": "Tidak"},
+                {"label": "Ya", "value": 1},
+                {"label": "Tidak", "value": 0},
             
             ],
             value=4,
@@ -193,8 +194,8 @@ app.layout = dbc.Container([
             html.Label("13. Apakah Anda Memiliki Riwayat Pendarahan Pasca Lahir?"),
         dbc.RadioItems(
             options=[
-                {"label": "Ya", "value": "Ya"},
-                {"label": "Tidak", "value": "Tidak"},
+                {"label": "Ya", "value": 1},
+                {"label": "Tidak", "value": 0},
             ],
             value=3,
             id="radioitems-inline-input_11",
@@ -207,8 +208,8 @@ app.layout = dbc.Container([
             html.Br(),
         dbc.RadioItems(
             options=[
-                {"label": "Ya", "value": "Ya"},
-                {"label": "Tidak", "value": "Tidak"},
+                {"label": "Ya", "value": 1},
+                {"label": "Tidak", "value": 0},
             
             ],
             value=3,
@@ -223,8 +224,8 @@ app.layout = dbc.Container([
             html.Label("15. Apakah Anda Sering Menggunakan Gadget?"),
         dbc.RadioItems(
             options=[
-                {"label": "Ya", "value": "Ya"},
-                {"label": "Tidak", "value": "Tidak"},
+                {"label": "Ya", "value": 1},
+                {"label": "Tidak", "value": 0},
             ],
             value=3,
             id="radioitems-inline-input_13",
@@ -237,8 +238,8 @@ app.layout = dbc.Container([
             html.Br(),
         dbc.RadioItems(
             options=[
-                {"label": "Ya", "value": "Ya"},
-                {"label": "Tidak", "value": "Tidak"},
+                {"label": "Ya", "value": 1},
+                {"label": "Tidak", "value": 0},
             
             ],
             value=3,
@@ -253,8 +254,8 @@ app.layout = dbc.Container([
             html.Label("17. Apakah Anda Memiliki Riwayat Alergi?"),
         dbc.RadioItems(
             options=[
-                {"label": "Ya", "value": "Ya"},
-                {"label": "Tidak", "value": "Tidak"},
+                {"label": "Ya", "value": 1},
+                {"label": "Tidak", "value": 0},
             ],
             value=3,
             id="radioitems-inline-input_15",
@@ -267,8 +268,8 @@ app.layout = dbc.Container([
             html.Br(),
         dbc.RadioItems(
             options=[
-                {"label": "Ya", "value": "Ya"},
-                {"label": "Tidak", "value": "Tidak"},
+                {"label": "Ya", "value": 1},
+                {"label": "Tidak", "value": 0},
             
             ],
             value=3,
@@ -395,7 +396,6 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
 
     # Callback for collapsing/expanding section
     if n:
-
         with open('rf_classifier.pkl', 'rb') as file:
             rf_classifier = joblib.load(file)
 
@@ -413,25 +413,10 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
         else:
             usia_kandungan_value = 0
 
-        score = 0
-        if usia_ibu_value < 20 or usia_ibu_value > 40:
-            score += 7.8
-        elif usia_ibu_value >= 31 and usia_ibu_value <= 40:
-            score += 4.6
-
-        if usia_kandungan_value == 1:
-            score += 7.8
-        elif usia_kandungan_value == 2:
-            score += 4.6
-
-        if hamil_ke_brp == 1:
-            score += 4.6
-        elif hamil_ke_brp == 4:
-            score += 7.8
-
-
-        if riwayat_pendarahan == 'Ya':
-            score += 5.6
+        if riwayat_penyakit[0] == 'Tidak Ada':
+            riwayat_penyakit = 0
+        else:
+            riwayat_penyakit = 1
 
         if penyakit_turunan[0] == 'Tidak Ada':
             penyakit_turunan = 0
@@ -477,6 +462,6 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
 
 
 if __name__ == '__main__':
-    app.run_server(port=8010)
+    app.run_server(port=8009)
 
 
