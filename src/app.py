@@ -6,6 +6,8 @@ import dash_mantine_components as dmc
 import joblib
 import gspread
 from datetime import datetime
+from dotenv import load_dotenv, dotenv_values
+import os
 # Load the model
 
 
@@ -387,7 +389,8 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
     if n:
         current_datetime = datetime.now()
         formatted_datetime = current_datetime.strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
-        client = gspread.service_account(filename='credentials.json')
+        config = dotenv_values(".env")
+        client = gspread.service_account(filename=config)
         sheets = client.open_by_key('1UMOEJvUrcuCOWZPiMpWlpEcIMKIm3p8eSBq0HjaFsmI')
         x = sheets.get_worksheet(0)
         riwayat_penyakit_join = ', '.join(riwayat_penyakit)
