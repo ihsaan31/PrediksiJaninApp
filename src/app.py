@@ -403,7 +403,7 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
           "client_x509_cert_url": os.environ.get("client_x509_cert_url"),
           "universe_domain": os.environ.get("universe_domain")
 }
-        client = gspread.service_account_from_dict(filename=credentials_dict)
+        client = gspread.service_account_from_dict(credentials_dict)
         sheets = client.open_by_key('1UMOEJvUrcuCOWZPiMpWlpEcIMKIm3p8eSBq0HjaFsmI')
         x = sheets.get_worksheet(0)
         riwayat_penyakit_join = ', '.join(riwayat_penyakit)
