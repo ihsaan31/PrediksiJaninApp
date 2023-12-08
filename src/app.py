@@ -4,8 +4,8 @@ import plotly.express as px
 from dash.dependencies import Input, Output, State
 import dash_mantine_components as dmc
 import joblib
-
-
+import gspread
+from datetime import datetime
 # Load the model
 
 
@@ -34,11 +34,11 @@ app.layout = dbc.Container([
             html.Label("3. Golongan Darah"),
         dbc.RadioItems(
             options=[
-                {"label": "A", "value": 0},
-                {"label": "AB", "value": 1},
-                {"label": "B", "value": 2},
-                {"label": "O", "value": 3},
-                {"label": "Tidak Tau", "value": 4},
+                {"label": "A", "value": "A"},
+                {"label": "AB", "value": "AB"},
+                {"label": "B", "value": "B"},
+                {"label": "O", "value": "O"},
+                {"label": "Tidak Tau", "value": "Tidak Tau"},
             ],
             value= 6,
             id="radioitems-inline-input_1",
@@ -51,9 +51,9 @@ app.layout = dbc.Container([
             html.Br(),
         dbc.RadioItems(
             options=[
-                {"label": "Postitif (+)", "value": 1},
-                {"label": "Negatif (-)", "value": 0},
-                {"label": "Tidak Tau", "value": 2},
+                {"label": "Positif (+)", "value": "Positif (+)"},
+                {"label": "Negatif (-)", "value": "Negatif (-)"},
+                {"label": "Tidak Tau", "value": "Tidak Tau"},
             ],
             value= 6,
             id="radioitems-inline-input_2",
@@ -105,7 +105,7 @@ app.layout = dbc.Container([
                 {"label": "0", "value": 0},
                 {"label": "1", "value": 1},
                 {"label": "2", "value": 2},
-                {"label": "3 atau lebih", "value": 3},
+                {"label": "3 atau lebih", "value":3},
             ],
             value=5,
             id="radioitems-inline-input_5",
@@ -118,8 +118,8 @@ app.layout = dbc.Container([
             html.Br(),
         dbc.RadioItems(
             options=[
-                {"label": "Ya", "value": 1},
-                {"label": "Tidak", "value": 0},
+                {"label": "Ya", "value": "Ya"},
+                {"label": "Tidak", "value": "Tidak"},
             
             ],
             value=2,
@@ -134,8 +134,8 @@ app.layout = dbc.Container([
             html.Label("9. Apakah Anda Pengguna Alkohol? "),
         dbc.RadioItems(
             options=[
-                {"label": "Ya", "value": 1},
-                {"label": "Tidak", "value": 0},
+                {"label": "Ya", "value": "Ya"},
+                {"label": "Tidak", "value": "Tidak"},
             ],
             value=3,
             id="radioitems-inline-input_7",
@@ -148,8 +148,8 @@ app.layout = dbc.Container([
             html.Br(),
         dbc.RadioItems(
             options=[
-                {"label": "Ya", "value": 1},
-                {"label": "Tidak", "value": 0},
+                {"label": "Ya", "value": "Ya"},
+                {"label": "Tidak", "value": "Tidak"},
             
             ],
             value=3,
@@ -164,8 +164,8 @@ app.layout = dbc.Container([
             html.Label("11. Apakah Anda Pengguna Narkoba?"),
         dbc.RadioItems(
             options=[
-                {"label": "Ya", "value": 1},
-                {"label": "Tidak", "value": 0},
+                {"label": "Ya", "value": "Ya"},
+                {"label": "Tidak", "value": "Tidak"},
             ],
             value=3,
             id="radioitems-inline-input_9",
@@ -178,8 +178,8 @@ app.layout = dbc.Container([
             html.Br(),
         dbc.RadioItems(
             options=[
-                {"label": "Ya", "value": 1},
-                {"label": "Tidak", "value": 0},
+                {"label": "Ya", "value": "Ya"},
+                {"label": "Tidak", "value": "Tidak"},
             
             ],
             value=4,
@@ -194,8 +194,8 @@ app.layout = dbc.Container([
             html.Label("13. Apakah Anda Memiliki Riwayat Pendarahan Pasca Lahir?"),
         dbc.RadioItems(
             options=[
-                {"label": "Ya", "value": 1},
-                {"label": "Tidak", "value": 0},
+                {"label": "Ya", "value": "Ya"},
+                {"label": "Tidak", "value": "Tidak"},
             ],
             value=3,
             id="radioitems-inline-input_11",
@@ -208,8 +208,8 @@ app.layout = dbc.Container([
             html.Br(),
         dbc.RadioItems(
             options=[
-                {"label": "Ya", "value": 1},
-                {"label": "Tidak", "value": 0},
+                {"label": "Ya", "value": "Ya"},
+                {"label": "Tidak", "value": "Tidak"},
             
             ],
             value=3,
@@ -224,8 +224,8 @@ app.layout = dbc.Container([
             html.Label("15. Apakah Anda Sering Menggunakan Gadget?"),
         dbc.RadioItems(
             options=[
-                {"label": "Ya", "value": 1},
-                {"label": "Tidak", "value": 0},
+                {"label": "Ya", "value": "Ya"},
+                {"label": "Tidak", "value": "Tidak"},
             ],
             value=3,
             id="radioitems-inline-input_13",
@@ -238,8 +238,8 @@ app.layout = dbc.Container([
             html.Br(),
         dbc.RadioItems(
             options=[
-                {"label": "Ya", "value": 1},
-                {"label": "Tidak", "value": 0},
+                {"label": "Ya", "value": "Ya"},
+                {"label": "Tidak", "value": "Tidak"},
             
             ],
             value=3,
@@ -254,8 +254,8 @@ app.layout = dbc.Container([
             html.Label("17. Apakah Anda Memiliki Riwayat Alergi?"),
         dbc.RadioItems(
             options=[
-                {"label": "Ya", "value": 1},
-                {"label": "Tidak", "value": 0},
+                {"label": "Ya", "value": "Ya"},
+                {"label": "Tidak", "value": "Tidak"},
             ],
             value=3,
             id="radioitems-inline-input_15",
@@ -268,8 +268,8 @@ app.layout = dbc.Container([
             html.Br(),
         dbc.RadioItems(
             options=[
-                {"label": "Ya", "value": 1},
-                {"label": "Tidak", "value": 0},
+                {"label": "Ya", "value": "Ya"},
+                {"label": "Tidak", "value": "Tidak"},
             
             ],
             value=3,
@@ -375,41 +375,48 @@ app.layout = dbc.Container([
      State("radioitems-inline-input_15", "value"),# riwayat_alergi
      State("radioitems-inline-input_16", "value"),# pernah_caesar
      State("Checklist-inline-input_17", "value"),# riwayat_penyakit
-     State("Checklist-inline-input_18", "value")]# penyakit_turunan
+     State("Checklist-inline-input_18", "value"),
+     State("nama-bidan", "value")]# penyakit_turunan
 )
-def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu_value, usia_kandungan_value, golongan_darah, rhesus, hamil_ke_brp, riwayat_caesar, jumlah_keguguran, kehamilan_diinginkan, alkohol, rokok, narkoba, polusi, riwayat_pendarahan, pedarahan_ketika, gadget, riwayat_kelainan, riwayat_alergi, pernah_caesar,riwayat_penyakit, penyakit_turunan ):
+def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu_value, usia_kandungan_value, golongan_darah, rhesus, hamil_ke_brp, riwayat_caesar, jumlah_keguguran, kehamilan_diinginkan, alkohol, rokok, narkoba, polusi, riwayat_pendarahan, pedarahan_ketika, gadget, riwayat_kelainan, riwayat_alergi, pernah_caesar,riwayat_penyakit, penyakit_turunan, nama_bidan):
     # Callback for showing/hiding custom input
     style_lainnya_input = {'display': 'block'} if 'Lainnya' in selected_options_17 else {'display': 'none'}
     style_lainnya_input_turunan = {'display': 'block'} if 'Lainnya' in selected_options_18 else {'display': 'none'}
 
     # Callback for collapsing/expanding section
     if n:
+        current_datetime = datetime.now()
+        formatted_datetime = current_datetime.strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
+        client = gspread.service_account(filename='credentials.json')
+        sheets = client.open_by_key('1UMOEJvUrcuCOWZPiMpWlpEcIMKIm3p8eSBq0HjaFsmI')
+        x = sheets.get_worksheet(0)
+        riwayat_penyakit_join = ', '.join(riwayat_penyakit)
+        penyakit_turunan_join = ', '.join(penyakit_turunan)
+        data_to_add = [formatted_datetime, nama_bidan, usia_ibu_value, usia_kandungan_value, golongan_darah, rhesus, hamil_ke_brp, riwayat_caesar, jumlah_keguguran, kehamilan_diinginkan, alkohol, rokok, narkoba, polusi, riwayat_pendarahan, pedarahan_ketika, gadget, riwayat_kelainan, riwayat_alergi, pernah_caesar ,riwayat_penyakit_join, penyakit_turunan_join]
+        x.append_row(data_to_add)
+        
         with open('rf_classifier.pkl', 'rb') as file:
             rf_classifier = joblib.load(file)
 
-        if usia_ibu_value < 20 or usia_ibu_value > 40:
-            usia_ibu_value = 2
-        elif 31 <= usia_ibu_value <= 40:
-            usia_ibu_value = 1
-        else:
-            usia_ibu_value = 0
+        usia_ibu_value = 2 if usia_ibu_value < 20 or usia_ibu_value > 40 else (1 if 31 <= usia_ibu_value <= 40 else 0)
+        usia_kandungan_value = 2 if usia_kandungan_value == 1 else (1 if usia_kandungan_value == 2 else 0)
+        golongan_darah = 3 if golongan_darah == 'O' else (0 if golongan_darah == 'A' else (4 if golongan_darah == 'Tidak Tau' else (2 if golongan_darah == 'B' else 1)))
+        rhesus = 1 if rhesus == 'Positif (+)' else (2 if rhesus == 'Tidak Tau' else (0 if rhesus == 'Negatif (-)' else None))
+        kehamilan_diinginkan = 1 if kehamilan_diinginkan == 'Ya' else (0 if kehamilan_diinginkan == "Tidak" else None)
+        alkohol = 1 if alkohol == 'Ya' else (0 if alkohol == "Tidak" else None)
+        rokok = 1 if rokok == 'Ya' else (0 if rokok == "Tidak" else None)
+        narkoba = 1 if narkoba == 'Ya' else (0 if narkoba == "Tidak" else None)
+        polusi = 1 if polusi == 'Ya' else (0 if polusi == "Tidak" else None)
+        riwayat_pendarahan = 1 if riwayat_pendarahan == 'Ya' else (0 if riwayat_pendarahan == "Tidak" else None)
+        pedarahan_ketika = 1 if pedarahan_ketika == 'Ya' else (0 if pedarahan_ketika == "Tidak" else None)
+        gadget = 1 if gadget == 'Ya' else (0 if gadget == "Tidak" else None)
+        riwayat_kelainan = 1 if riwayat_kelainan == 'Ya' else (0 if riwayat_kelainan == "Tidak" else None)
+        riwayat_alergi = 1 if riwayat_alergi == 'Ya' else (0 if riwayat_alergi == "Tidak" else None)
+        pernah_caesar = 1 if pernah_caesar == 'Ya' else (0 if pernah_caesar == "Tidak" else None)
+        riwayat_penyakit = 0 if riwayat_penyakit[0] == 'Tidak Ada' else 1
+        penyakit_turunan = 0 if penyakit_turunan[0] == 'Tidak Ada' else 1
+        #print(usia_ibu_value, usia_kandungan_value, golongan_darah,rhesus,hamil_ke_brp,jumlah_keguguran,kehamilan_diinginkan,alkohol,rokok,narkoba,polusi,riwayat_pendarahan,pedarahan_ketika,gadget,riwayat_kelainan,riwayat_alergi,pernah_caesar,riwayat_caesar, riwayat_penyakit,penyakit_turunan)
 
-        if usia_kandungan_value == 1:
-            usia_kandungan_value = 2
-        elif usia_kandungan_value == 2:
-            usia_kandungan_value = 1
-        else:
-            usia_kandungan_value = 0
-
-        if riwayat_penyakit[0] == 'Tidak Ada':
-            riwayat_penyakit = 0
-        else:
-            riwayat_penyakit = 1
-
-        if penyakit_turunan[0] == 'Tidak Ada':
-            penyakit_turunan = 0
-        else:
-            penyakit_turunan = 1
         prediction = rf_classifier.predict([[usia_ibu_value, usia_kandungan_value, golongan_darah,rhesus,hamil_ke_brp,jumlah_keguguran,kehamilan_diinginkan,alkohol,rokok,narkoba,polusi,riwayat_pendarahan,pedarahan_ketika,gadget,riwayat_kelainan,riwayat_alergi,pernah_caesar,riwayat_caesar, riwayat_penyakit,penyakit_turunan]])
         prediction = 'Tinggi' if prediction == 0 else ('Normal' if prediction == 1 else 'Rendah')
         

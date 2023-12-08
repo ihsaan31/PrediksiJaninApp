@@ -7,3 +7,5 @@ dash-tools
 dash_mantine_components
 joblib
 sklearn
+gspread==5.12.2
+datetime
