@@ -388,6 +388,33 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
 
     # Callback for collapsing/expanding section
     if n:
+        with open('rf_classifier.pkl', 'rb') as file:
+            rf_classifier = joblib.load(file)
+
+        usia_ibu_value_input = 2 if usia_ibu_value < 20 or usia_ibu_value > 40 else (1 if 31 <= usia_ibu_value <= 40 else 0)
+        usia_kandungan_value_input = 2 if usia_kandungan_value == 1 else (1 if usia_kandungan_value == 2 else 0)
+        golongan_darah_input = 3 if golongan_darah == 'O' else (0 if golongan_darah == 'A' else (4 if golongan_darah == 'Tidak Tau' else (2 if golongan_darah == 'B' else 1)))
+        rhesus_input = 1 if rhesus == 'Positif (+)' else (2 if rhesus == 'Tidak Tau' else (0 if rhesus == 'Negatif (-)' else None))
+        kehamilan_diinginkan_input = 1 if kehamilan_diinginkan == 'Ya' else (0 if kehamilan_diinginkan == "Tidak" else None)
+        alkohol_input = 1 if alkohol == 'Ya' else (0 if alkohol == "Tidak" else None)
+        rokok_input = 1 if rokok == 'Ya' else (0 if rokok == "Tidak" else None)
+        narkoba_input = 1 if narkoba == 'Ya' else (0 if narkoba == "Tidak" else None)
+        polusi_input = 1 if polusi == 'Ya' else (0 if polusi == "Tidak" else None)
+        riwayat_pendarahan_input = 1 if riwayat_pendarahan == 'Ya' else (0 if riwayat_pendarahan == "Tidak" else None)
+        pedarahan_ketika_input = 1 if pedarahan_ketika == 'Ya' else (0 if pedarahan_ketika == "Tidak" else None)
+        gadget_input = 1 if gadget == 'Ya' else (0 if gadget == "Tidak" else None)
+        riwayat_kelainan_input = 1 if riwayat_kelainan == 'Ya' else (0 if riwayat_kelainan == "Tidak" else None)
+        riwayat_alergi_input = 1 if riwayat_alergi == 'Ya' else (0 if riwayat_alergi == "Tidak" else None)
+        pernah_caesar_input = 1 if pernah_caesar == 'Ya' else (0 if pernah_caesar == "Tidak" else None)
+        riwayat_penyakit_input = 0 if riwayat_penyakit[0] == 'Tidak Ada' else 1
+        penyakit_turunan_input = 0 if penyakit_turunan[0] == 'Tidak Ada' else 1
+        hamil_ke_brp_input = hamil_ke_brp
+        jumlah_keguguran_input = jumlah_keguguran
+        riwayat_caesar_input = riwayat_caesar
+        
+        prediction = rf_classifier.predict([[usia_ibu_value_input, usia_kandungan_value_input, golongan_darah_input,rhesus_input,hamil_ke_brp_input,jumlah_keguguran_input,kehamilan_diinginkan_input,alkohol_input,rokok_input,narkoba_input,polusi_input,riwayat_pendarahan_input,pedarahan_ketika_input,gadget_input,riwayat_kelainan_input,riwayat_alergi_input,pernah_caesar_input,riwayat_caesar_input, riwayat_penyakit_input,penyakit_turunan_input]])
+        prediction = 'Tinggi' if prediction == 0 else ('Normal' if prediction == 1 else 'Rendah')
+        
         current_datetime = datetime.now()
         formatted_datetime = current_datetime.strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
         client = gspread.service_account(filename='/etc/secrets/.env')
@@ -395,34 +422,9 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
         x = sheets.get_worksheet(0)
         riwayat_penyakit_join = ', '.join(riwayat_penyakit)
         penyakit_turunan_join = ', '.join(penyakit_turunan)
-        data_to_add = [formatted_datetime, nama_bidan, usia_ibu_value, usia_kandungan_value, golongan_darah, rhesus, hamil_ke_brp, riwayat_caesar, jumlah_keguguran, kehamilan_diinginkan, alkohol, rokok, narkoba, polusi, riwayat_pendarahan, pedarahan_ketika, gadget, riwayat_kelainan, riwayat_alergi, pernah_caesar ,riwayat_penyakit_join, penyakit_turunan_join]
+        data_to_add = [formatted_datetime, nama_bidan, usia_ibu_value, usia_kandungan_value, golongan_darah, rhesus, hamil_ke_brp, riwayat_caesar, jumlah_keguguran, kehamilan_diinginkan, alkohol, rokok, narkoba, polusi, riwayat_pendarahan, pedarahan_ketika, gadget, riwayat_kelainan, riwayat_alergi, pernah_caesar ,riwayat_penyakit_join, penyakit_turunan_join, prediction]
         x.append_row(data_to_add)
-        
-        with open('rf_classifier.pkl', 'rb') as file:
-            rf_classifier = joblib.load(file)
 
-        usia_ibu_value = 2 if usia_ibu_value < 20 or usia_ibu_value > 40 else (1 if 31 <= usia_ibu_value <= 40 else 0)
-        usia_kandungan_value = 2 if usia_kandungan_value == 1 else (1 if usia_kandungan_value == 2 else 0)
-        golongan_darah = 3 if golongan_darah == 'O' else (0 if golongan_darah == 'A' else (4 if golongan_darah == 'Tidak Tau' else (2 if golongan_darah == 'B' else 1)))
-        rhesus = 1 if rhesus == 'Positif (+)' else (2 if rhesus == 'Tidak Tau' else (0 if rhesus == 'Negatif (-)' else None))
-        kehamilan_diinginkan = 1 if kehamilan_diinginkan == 'Ya' else (0 if kehamilan_diinginkan == "Tidak" else None)
-        alkohol = 1 if alkohol == 'Ya' else (0 if alkohol == "Tidak" else None)
-        rokok = 1 if rokok == 'Ya' else (0 if rokok == "Tidak" else None)
-        narkoba = 1 if narkoba == 'Ya' else (0 if narkoba == "Tidak" else None)
-        polusi = 1 if polusi == 'Ya' else (0 if polusi == "Tidak" else None)
-        riwayat_pendarahan = 1 if riwayat_pendarahan == 'Ya' else (0 if riwayat_pendarahan == "Tidak" else None)
-        pedarahan_ketika = 1 if pedarahan_ketika == 'Ya' else (0 if pedarahan_ketika == "Tidak" else None)
-        gadget = 1 if gadget == 'Ya' else (0 if gadget == "Tidak" else None)
-        riwayat_kelainan = 1 if riwayat_kelainan == 'Ya' else (0 if riwayat_kelainan == "Tidak" else None)
-        riwayat_alergi = 1 if riwayat_alergi == 'Ya' else (0 if riwayat_alergi == "Tidak" else None)
-        pernah_caesar = 1 if pernah_caesar == 'Ya' else (0 if pernah_caesar == "Tidak" else None)
-        riwayat_penyakit = 0 if riwayat_penyakit[0] == 'Tidak Ada' else 1
-        penyakit_turunan = 0 if penyakit_turunan[0] == 'Tidak Ada' else 1
-        #print(usia_ibu_value, usia_kandungan_value, golongan_darah,rhesus,hamil_ke_brp,jumlah_keguguran,kehamilan_diinginkan,alkohol,rokok,narkoba,polusi,riwayat_pendarahan,pedarahan_ketika,gadget,riwayat_kelainan,riwayat_alergi,pernah_caesar,riwayat_caesar, riwayat_penyakit,penyakit_turunan)
-
-        prediction = rf_classifier.predict([[usia_ibu_value, usia_kandungan_value, golongan_darah,rhesus,hamil_ke_brp,jumlah_keguguran,kehamilan_diinginkan,alkohol,rokok,narkoba,polusi,riwayat_pendarahan,pedarahan_ketika,gadget,riwayat_kelainan,riwayat_alergi,pernah_caesar,riwayat_caesar, riwayat_penyakit,penyakit_turunan]])
-        prediction = 'Tinggi' if prediction == 0 else ('Normal' if prediction == 1 else 'Rendah')
-        
         # output_text = f"Janin: {'Beresiko' if score >= 1 else 'Normal'}"
         output_text = f"Janin beresiko: {prediction}"
 
