@@ -390,23 +390,7 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
     if n:
         current_datetime = datetime.now()
         formatted_datetime = current_datetime.strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
-        config = dotenv_values("/etc/secrets/.env")
-        credentials_dict = {
-           "type": config["type"],
-           "project_id": config["project_id"],
-           "private_key_id": config["private_key_id"],
-           "private_key": config["private_key"],
-           "client_email": config["client_email"],
-           "client_id": config["client_id"],
-           "auth_uri": config["auth_uri"],
-           "token_uri": config["token_uri"],
-           "auth_provider_x509_cert_url": config["auth_provider_x509_cert_url"],
-           "client_x509_cert_url": config["client_x509_cert_url"],
-           "universe_domain": config["universe_domain"]
-}
-        creds = service_account.Credentials.from_service_account_info(credentials_dict)
-        client = gspread.service_account_from_dict(credentials_dict)
-        #client = gspread.service_account(filename=config)
+        client = gspread.service_account(filename='/etc/secrets/.env')
         sheets = client.open_by_key('1UMOEJvUrcuCOWZPiMpWlpEcIMKIm3p8eSBq0HjaFsmI')
         x = sheets.get_worksheet(0)
         riwayat_penyakit_join = ', '.join(riwayat_penyakit)
