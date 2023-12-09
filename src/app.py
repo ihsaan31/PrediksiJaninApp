@@ -389,21 +389,8 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
     if n:
         current_datetime = datetime.now()
         formatted_datetime = current_datetime.strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
-        # config = dotenv_values(".env")
-        credentials_dict = {
-          "type": os.environ.get("type"),
-          "project_id": os.environ.get("project_id"),
-          "private_key_id": os.environ.get("private_key_id"),
-          "private_key": os.environ.get("private_key"),
-          "client_email": os.environ.get("client_email"),
-          "client_id": os.environ.get("client_id"),
-          "auth_uri": os.environ.get("auth_uri"),
-          "token_uri": os.environ.get("token_uri"),
-          "auth_provider_x509_cert_url": os.environ.get("auth_provider_x509_cert_url"),
-          "client_x509_cert_url": os.environ.get("client_x509_cert_url"),
-          "universe_domain": os.environ.get("universe_domain")
-}
-        client = gspread.service_account_from_dict(credentials_dict)
+        config = dotenv_values("/etc/secrets/.env")
+        client = gspread.service_account_from_dict(config)
         sheets = client.open_by_key('1UMOEJvUrcuCOWZPiMpWlpEcIMKIm3p8eSBq0HjaFsmI')
         x = sheets.get_worksheet(0)
         riwayat_penyakit_join = ', '.join(riwayat_penyakit)
