@@ -390,7 +390,7 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
         current_datetime = datetime.now()
         formatted_datetime = current_datetime.strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
         config = dotenv_values("/etc/secrets/.env")
-        client = gspread.service_account_from_dict(config)
+        client = gspread.service_account(filename=config)
         sheets = client.open_by_key('1UMOEJvUrcuCOWZPiMpWlpEcIMKIm3p8eSBq0HjaFsmI')
         x = sheets.get_worksheet(0)
         riwayat_penyakit_join = ', '.join(riwayat_penyakit)
