@@ -330,7 +330,25 @@ app.layout = dbc.Container([
     dbc.Row([
         dbc.Col([
             dmc.TextInput(id="nama-bidan", label="21. Info Dari Bidan:", error=False),
-        ], width={'size': 12, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0})
+        ], width={'size': 12, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0}),
+        
+        dbc.Col([
+            html.Label('22. Jumlah Persalinan'), 
+            html.Br(),
+        dbc.RadioItems(
+            options=[
+                {"label": "0", "value": 0},
+                {"label": "1", "value": 1},
+                {"label": "2", "value": 2},
+                {"label": "3", "value": 3},
+                {"label": "4 atau lebih", "value": 4},
+            ],
+            value=5,
+            id="radioitems-inline-input_19",
+            inline=True,
+        ),
+        ], width={'size': 10, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0})
+        
     ]),
     dbc.Row([
         dbc.Col([
@@ -378,10 +396,11 @@ app.layout = dbc.Container([
      State("radioitems-inline-input_15", "value"),# riwayat_alergi
      State("radioitems-inline-input_16", "value"),# pernah_caesar
      State("Checklist-inline-input_17", "value"),# riwayat_penyakit
-     State("Checklist-inline-input_18", "value"),
-     State("nama-bidan", "value")]# penyakit_turunan
+     State("Checklist-inline-input_18", "value"),# penyakit_turunan
+     State("nama-bidan", "value"),
+     State("Checklist-inline-input_19", "value")]# jumlah_persalinan
 )
-def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu_value, usia_kandungan_value, golongan_darah, rhesus, hamil_ke_brp, riwayat_caesar, jumlah_keguguran, kehamilan_diinginkan, alkohol, rokok, narkoba, polusi, riwayat_pendarahan, pedarahan_ketika, gadget, riwayat_kelainan, riwayat_alergi, pernah_caesar,riwayat_penyakit, penyakit_turunan, nama_bidan):
+def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu_value, usia_kandungan_value, golongan_darah, rhesus, hamil_ke_brp, riwayat_caesar, jumlah_keguguran, kehamilan_diinginkan, alkohol, rokok, narkoba, polusi, riwayat_pendarahan, pedarahan_ketika, gadget, riwayat_kelainan, riwayat_alergi, pernah_caesar,riwayat_penyakit, penyakit_turunan, nama_bidan, jumlah_persalinan):
     # Callback for showing/hiding custom input
     style_lainnya_input = {'display': 'block'} if 'Lainnya' in selected_options_17 else {'display': 'none'}
     style_lainnya_input_turunan = {'display': 'block'} if 'Lainnya' in selected_options_18 else {'display': 'none'}
@@ -422,7 +441,7 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
         x = sheets.get_worksheet(0)
         riwayat_penyakit_join = ', '.join(riwayat_penyakit)
         penyakit_turunan_join = ', '.join(penyakit_turunan)
-        data_to_add = [formatted_datetime, nama_bidan, usia_ibu_value, usia_kandungan_value, golongan_darah, rhesus, hamil_ke_brp, riwayat_caesar, jumlah_keguguran, kehamilan_diinginkan, alkohol, rokok, narkoba, polusi, riwayat_pendarahan, pedarahan_ketika, gadget, riwayat_kelainan, riwayat_alergi, pernah_caesar ,riwayat_penyakit_join, penyakit_turunan_join, prediction]
+        data_to_add = [formatted_datetime, nama_bidan, usia_ibu_value, usia_kandungan_value, golongan_darah, rhesus, hamil_ke_brp, riwayat_caesar, jumlah_keguguran, kehamilan_diinginkan, alkohol, rokok, narkoba, polusi, riwayat_pendarahan, pedarahan_ketika, gadget, riwayat_kelainan, riwayat_alergi, pernah_caesar ,riwayat_penyakit_join, penyakit_turunan_join,jumlah_persalinan, prediction]
         x.append_row(data_to_add)
 
         # output_text = f"Janin: {'Beresiko' if score >= 1 else 'Normal'}"
@@ -462,6 +481,6 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
 
 
 if __name__ == '__main__':
-    app.run_server(port=8011)
+    app.run_server(port=8000)
 
 
