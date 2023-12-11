@@ -398,7 +398,7 @@ app.layout = dbc.Container([
      State("Checklist-inline-input_17", "value"),# riwayat_penyakit
      State("Checklist-inline-input_18", "value"),# penyakit_turunan
      State("nama-bidan", "value"),
-     State("Checklist-inline-input_19", "value")]# jumlah_persalinan
+     State("radioitems-inline-input_19", "value")]# jumlah_persalinan
 )
 def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu_value, usia_kandungan_value, golongan_darah, rhesus, hamil_ke_brp, riwayat_caesar, jumlah_keguguran, kehamilan_diinginkan, alkohol, rokok, narkoba, polusi, riwayat_pendarahan, pedarahan_ketika, gadget, riwayat_kelainan, riwayat_alergi, pernah_caesar,riwayat_penyakit, penyakit_turunan, nama_bidan, jumlah_persalinan):
     # Callback for showing/hiding custom input
