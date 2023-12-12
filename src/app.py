@@ -362,6 +362,7 @@ app.layout = dbc.Container([
                 ),
             ],
             id="collapse",
+            centered=True,
             is_open=False,
         ),
     ],
