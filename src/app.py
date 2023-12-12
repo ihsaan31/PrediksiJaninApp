@@ -353,14 +353,20 @@ app.layout = dbc.Container([
     dbc.Row([
         dbc.Col([
             dbc.Button("Prediksi", color="primary", className="mt-3 mb-3", id="collapse-button", n_clicks=0),
-            dbc.Collapse(
-                dbc.Card(dbc.CardBody(id="collapse-output")),
-                id="collapse",
-                is_open=False,
-            ),
-        ],
+            dbc.Modal(
+            [
+                dbc.ModalHeader(dbc.ModalTitle("Hasil")),
+                dbc.ModalBody(id="collapse-output"),
+                dbc.ModalFooter(
+                    
+                ),
+            ],
+            id="collapse",
+            is_open=False,
+        ),
+    ],
     width={'size': 10, 'order': 1, 'offset': 1}, lg={'size': 6, 'order': 1, 'offset': 0}),
-    
+
     ]),
 ])
 
