@@ -405,17 +405,20 @@ app.layout = dbc.Container([
      State("Checklist-inline-input_17", "value"),# riwayat_penyakit
      State("Checklist-inline-input_18", "value"),# penyakit_turunan
      State("nama-bidan", "value"),
-     State("radioitems-inline-input_19", "value")]# jumlah_persalinan
+     State("radioitems-inline-input_19", "value"),
+     State("lainnya-input", "value"),
+     State("lainnya-input-turunan", "value")]# jumlah_persalinan
 )
-def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu_value, usia_kandungan_value, golongan_darah, rhesus, hamil_ke_brp, riwayat_caesar, jumlah_keguguran, kehamilan_diinginkan, alkohol, rokok, narkoba, polusi, riwayat_pendarahan, pedarahan_ketika, gadget, riwayat_kelainan, riwayat_alergi, pernah_caesar,riwayat_penyakit, penyakit_turunan, nama_bidan, jumlah_persalinan):
+def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu_value, usia_kandungan_value, golongan_darah, rhesus, hamil_ke_brp, riwayat_caesar, jumlah_keguguran, kehamilan_diinginkan, alkohol, rokok, narkoba, polusi, riwayat_pendarahan, pedarahan_ketika, gadget, riwayat_kelainan, riwayat_alergi, pernah_caesar,riwayat_penyakit, penyakit_turunan, nama_bidan, jumlah_persalinan, riwayat_penyakit_lainnya, penyakit_turunan_lainnya):
     # Callback for showing/hiding custom input
     style_lainnya_input = {'display': 'block'} if 'Lainnya' in selected_options_17 else {'display': 'none'}
     style_lainnya_input_turunan = {'display': 'block'} if 'Lainnya' in selected_options_18 else {'display': 'none'}
 
+    with open('rf_classifier.pkl', 'rb') as file:
+            rf_classifier = joblib.load(file)
     # Callback for collapsing/expanding section
     if n:
-        with open('rf_classifier.pkl', 'rb') as file:
-            rf_classifier = joblib.load(file)
+        
 
         usia_ibu_value_input = 2 if usia_ibu_value < 20 or usia_ibu_value > 40 else (1 if 31 <= usia_ibu_value <= 40 else 0)
         usia_kandungan_value_input = 2 if usia_kandungan_value == 1 else (1 if usia_kandungan_value == 2 else 0)
@@ -446,7 +449,9 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
         client = gspread.service_account(filename='/etc/secrets/.env')
         sheets = client.open_by_key('1UMOEJvUrcuCOWZPiMpWlpEcIMKIm3p8eSBq0HjaFsmI')
         x = sheets.get_worksheet(0)
+        riwayat_penyakit.append(riwayat_penyakit_lainnya)
         riwayat_penyakit_join = ', '.join(riwayat_penyakit)
+        penyakit_turunan.append(penyakit_turunan_lainnya)
         penyakit_turunan_join = ', '.join(penyakit_turunan)
         data_to_add = [formatted_datetime, nama_bidan, usia_ibu_value, usia_kandungan_value, golongan_darah, rhesus, hamil_ke_brp, riwayat_caesar, jumlah_keguguran, kehamilan_diinginkan, alkohol, rokok, narkoba, polusi, riwayat_pendarahan, pedarahan_ketika, gadget, riwayat_kelainan, riwayat_alergi, pernah_caesar ,riwayat_penyakit_join, penyakit_turunan_join,jumlah_persalinan, prediction]
         x.append_row(data_to_add)
@@ -488,6 +493,9 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
 
 
 if __name__ == '__main__':
-    app.run_server(port=8000)
+    app.run_server(port=8002)
+
+
+
 
 
