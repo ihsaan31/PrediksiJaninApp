@@ -449,12 +449,27 @@ def update_layout(selected_options_17, selected_options_18, n, is_open, usia_ibu
         client = gspread.service_account(filename='/etc/secrets/.env')
         sheets = client.open_by_key('1UMOEJvUrcuCOWZPiMpWlpEcIMKIm3p8eSBq0HjaFsmI')
         x = sheets.get_worksheet(0)
-        riwayat_penyakit.append(riwayat_penyakit_lainnya)
+
+# Ensure riwayat_penyakit_lainnya is not None before appending
+        if riwayat_penyakit_lainnya is not None:
+            riwayat_penyakit.append(riwayat_penyakit_lainnya)
+
+# Ensure penyakit_turunan_lainnya is not None before appending
+        if penyakit_turunan_lainnya is not None:
+            penyakit_turunan.append(penyakit_turunan_lainnya)
+
+# Convert None values to empty strings in riwayat_penyakit and penyakit_turunan
+        riwayat_penyakit = [str(item) if item is not None else '' for item in riwayat_penyakit]
+        penyakit_turunan = [str(item) if item is not None else '' for item in penyakit_turunan]
+
+# Now, you can safely use join without encountering a TypeError
         riwayat_penyakit_join = ', '.join(riwayat_penyakit)
-        penyakit_turunan.append(penyakit_turunan_lainnya)
         penyakit_turunan_join = ', '.join(penyakit_turunan)
-        data_to_add = [formatted_datetime, nama_bidan, usia_ibu_value, usia_kandungan_value, golongan_darah, rhesus, hamil_ke_brp, riwayat_caesar, jumlah_keguguran, kehamilan_diinginkan, alkohol, rokok, narkoba, polusi, riwayat_pendarahan, pedarahan_ketika, gadget, riwayat_kelainan, riwayat_alergi, pernah_caesar ,riwayat_penyakit_join, penyakit_turunan_join,jumlah_persalinan, prediction]
+
+# The rest of your code remains unchanged
+        data_to_add = [formatted_datetime, nama_bidan, usia_ibu_value, usia_kandungan_value, golongan_darah, rhesus, hamil_ke_brp, riwayat_caesar, jumlah_keguguran, kehamilan_diinginkan, alkohol, rokok, narkoba, polusi, riwayat_pendarahan, pedarahan_ketika, gadget, riwayat_kelainan, riwayat_alergi, pernah_caesar, riwayat_penyakit_join, penyakit_turunan_join, jumlah_persalinan, prediction]
         x.append_row(data_to_add)
+
 
         # output_text = f"Janin: {'Beresiko' if score >= 1 else 'Normal'}"
         output_text = f"Janin beresiko: {prediction}"
